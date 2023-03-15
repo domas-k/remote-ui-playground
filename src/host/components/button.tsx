@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface Props {
+export interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
 }
 
-export const Button: React.FC<Props> = ({
+export const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
 }) => (
