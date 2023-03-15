@@ -10,4 +10,5 @@ export type Endpoint = {
 export interface Api {
   getMessage: () => Promise<string>
   log: (...msgs: any) => Promise<void>
+  handleClick: () => Promise<void>
 }

@@ -13,7 +13,6 @@ endpoint.expose({
     retain(api);
     // const remoteRoot = createRemoteRoot(receiver, {components: ['Button', 'div']});
     const remoteRoot = createRemoteRoot(receiver);
-    console.log('HELLO')
     const root = createRoot(remoteRoot);
 
     root.render(<RemoteApp api={api} />);

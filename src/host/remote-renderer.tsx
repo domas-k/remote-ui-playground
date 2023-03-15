@@ -6,7 +6,7 @@ import {
   createRemoteReceiver,
   RemoteRenderer as RemoteUIRenderer,
 } from '@remote-ui/react/host';
-import {Endpoint} from '../types';
+import {Api, Endpoint} from '../types';
 import { Button } from './components/button';
 
 const createWorker = createPlainWorkerFactory(
@@ -17,25 +17,23 @@ const worker = createWorker()
 const remoteEndpoint = createEndpoint<Endpoint>(fromWebWorker(worker));
 
 interface Props {
-  inputRef: React.RefObject<HTMLInputElement>;
+  api: Api
 }
 
-export const RemoteRenderer: React.FC<Props> = ({ inputRef }) => {
+export const RemoteRenderer: React.FC<Props> = ({ api }) => {
   const receiver = useMemo(() => createRemoteReceiver(), []);
   const controller = useMemo(() => createController({
     Button,
     div: (props) => <div {...props} />,
+    span: (props) => <span {...props} />,
   }), []);
 
   useEffect(() => {
     async function run() {
-      await remoteEndpoint.call.render(receiver.receive, {
-        getMessage: async () => inputRef.current!.value,
-        log: async (...msgs: any) => console.log('FROM REMOTE: ', ...msgs)
-      })
+      await remoteEndpoint.call.render(receiver.receive, api)
     }
     run();
-  }, [receiver, inputRef]);
+  }, [receiver, api]);
 
   return <RemoteUIRenderer receiver={receiver} controller={controller} />;
 }

@@ -9,7 +9,7 @@ export const Button: React.FC<Props> = ({
   onClick,
   children,
 }) => (
-  <button className="Button" onClick={onClick} type="button">
+  <button className="Button" onClick={() => onClick()} type="button">
     {children}
   </button>
 );
