@@ -16,9 +16,7 @@ endpoint.expose({
     console.log('HELLO')
     const root = createRoot(remoteRoot);
 
-    root.render(<div>HELLO</div>)
-    // root.render(<RemoteApp api={api} />);
+    root.render(<RemoteApp api={api} />);
     await remoteRoot.mount();
   },
 });
-
